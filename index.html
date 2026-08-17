@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amira Lemrani — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beige:#e8d6cf;
+    --beige-2:#d7b7ac;
+    --cream:#f3e7de;
+    --wine:#5c2338;
+    --wine-2:#77304a;
+    --gold:#a97c53;
+    --gold-light:#cf9f74;
+    --ink:#241417;
+    --muted:#725850;
+    --hair:rgba(169,124,83,0.4);
+    --glow-1:rgba(92,35,56,0.10);
+    --glow-2:rgba(169,124,83,0.16);
+    --nav-bg:rgba(232,214,207,0.82);
+    --tint-hover:rgba(169,124,83,0.14);
+    --tint-focus:rgba(169,124,83,0.22);
+    --tint-ghost:rgba(92,35,56,0.08);
+    --card-bg:rgba(243,231,222,0.88);
+    --card-bg-strong:rgba(243,231,222,0.94);
+    --shadow:rgba(44,35,24,0.35);
+  }
+  [data-theme="dark"]{
+    --beige:#1c1216;
+    --beige-2:#2b1a20;
+    --cream:#241820;
+    --wine:#e3a4b8;
+    --wine-2:#edbccb;
+    --gold:#cf9f74;
+    --gold-light:#e8c193;
+    --ink:#f4e9e0;
+    --muted:#c6ada4;
+    --hair:rgba(207,159,116,0.3);
+    --glow-1:rgba(227,164,184,0.08);
+    --glow-2:rgba(207,159,116,0.10);
+    --nav-bg:rgba(28,18,22,0.82);
+    --tint-hover:rgba(207,159,116,0.12);
+    --tint-focus:rgba(207,159,116,0.2);
+    --tint-ghost:rgba(227,164,184,0.1);
+    --card-bg:rgba(36,24,32,0.85);
+    --card-bg-strong:rgba(36,24,32,0.92);
+    --shadow:rgba(0,0,0,0.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html[dir="rtl"] .timeline-item{ border-left:none; border-right:2px solid var(--hair); padding:18px 22px 20px 0; }
+  html[dir="rtl"] .timeline-item::before{ left:auto; right:-6px; }
+  html[dir="rtl"] .stat{ border-left:none; border-right:1px solid var(--wine); padding-left:0; padding-right:18px; }
+  body{
+    margin:0;
+    background:var(--beige);
+    background-image:
+      radial-gradient(900px 500px at 90% -10%, var(--glow-1), transparent 60%),
+      radial-gradient(700px 500px at 0% 100%, var(--glow-2), transparent 55%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Cormorant Garamond', serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    transition:background-color .4s ease, color .4s ease;
+  }
+  .ui{font-family:'Jost',sans-serif;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:600; margin:0;}
+  .eyebrow{
+    font-family:'Cinzel', serif;
+    text-transform:uppercase;
+    letter-spacing:0.32em;
+    font-size:11.5px;
+    color:var(--wine);
+    font-weight:600;
+  }
+
+  .wrap{max-width:1160px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- nav ---------- */
+  nav.topbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--nav-bg); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hair);
+  }
+  .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 32px; max-width:1160px; margin:0 auto; flex-wrap:wrap;}
+  .monogram{
+    font-family:'Cinzel', serif; font-size:15px; letter-spacing:0.08em; color:var(--wine);
+    width:40px; height:40px; border:1px solid var(--gold); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .nav-links{display:flex; gap:30px; flex-wrap:wrap;}
+  .nav-links a{
+    font-family:'Jost',sans-serif; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--muted); text-decoration:none; position:relative; padding-bottom:3px;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--wine);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{width:100%;}
+
+  .nav-tools{display:flex; align-items:center; gap:16px; font-family:'Jost',sans-serif;}
+  .lang-pills{display:flex; align-items:center; gap:4px; border:1px solid var(--hair); border-radius:20px; padding:3px; }
+  .lang-pill{
+    border:none; background:transparent; color:var(--muted); font-family:'Jost',sans-serif;
+    font-size:11.5px; letter-spacing:0.04em; padding:5px 11px; border-radius:16px; cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .lang-pill.active{ background:var(--wine); color:var(--cream); }
+  .theme-toggle{
+    width:32px; height:32px; border-radius:50%; border:1px solid var(--hair); background:transparent;
+    color:var(--gold); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:background .2s;
+  }
+  .theme-toggle:hover{ background:var(--tint-hover); }
+  .theme-toggle svg{ width:16px; height:16px; }
+  .icon-moon{ display:none; }
+  [data-theme="dark"] .icon-sun{ display:none; }
+  [data-theme="dark"] .icon-moon{ display:block; }
+
+  /* ---------- shimmer divider (signature motion) ---------- */
+  .divider{ position:relative; height:1px; margin:70px 0; background:var(--hair); overflow:hidden; }
+  .divider::after{
+    content:''; position:absolute; top:0; left:-30%; width:30%; height:100%;
+    background:linear-gradient(90deg, transparent, var(--gold-light), transparent);
+    animation:shimmer 6s ease-in-out infinite;
+  }
+  @keyframes shimmer{ 0%{left:-30%;} 50%{left:100%;} 100%{left:100%;} }
+  .divider-mark{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    background:var(--beige); padding:0 16px; color:var(--gold);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:90px 0 40px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:50px; align-items:center; }
+  .hero-eyebrow-line{display:flex; align-items:center; gap:14px; margin-bottom:22px;}
+  .hero-eyebrow-line .stub{width:34px; height:1px; background:var(--wine);}
+  .hero h1{ font-size:clamp(42px,6vw,72px); line-height:1.03; color:var(--ink); }
+  .hero h1 em{ font-style:italic; color:var(--wine); font-weight:500; }
+  .underline-svg{ display:block; margin-top:6px; }
+  .underline-svg path{
+    stroke:var(--gold); stroke-width:2; fill:none;
+    stroke-dasharray:600; stroke-dashoffset:600;
+    animation:draw 1.8s ease forwards .4s;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .hero .role{ font-family:'Jost',sans-serif; font-size:16px; letter-spacing:0.05em; color:var(--wine); margin:26px 0 18px; }
+  .hero .bio{ font-size:18px; line-height:1.75; color:var(--muted); max-width:480px; }
+  .hero-actions{ display:flex; gap:18px; margin-top:36px; flex-wrap:wrap; font-family:'Jost',sans-serif; }
+  .btn{
+    padding:14px 30px; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase;
+    text-decoration:none; cursor:pointer; border:1px solid var(--wine); position:relative; overflow:hidden;
+    transition:color .3s ease, background .3s ease; color:var(--wine); background:transparent;
+  }
+  .btn-solid{ background:var(--wine); color:var(--cream); }
+  .btn-solid:hover{ background:var(--wine-2); border-color:var(--wine-2); }
+  .btn-ghost:hover{ background:var(--tint-ghost); }
+
+  /* ---------- arch photo frame ---------- */
+  .arch-wrap{ position:relative; width:300px; margin:0 auto; }
+  .arch-ring{
+    position:absolute; inset:-14px; border:1px solid var(--gold-light);
+    border-radius:150px 150px 6px 6px; animation:spin 50s linear infinite; opacity:0.55;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .arch{
+    width:300px; height:380px; border-radius:150px 150px 6px 6px; overflow:hidden;
+    background:var(--cream); border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    position:relative; box-shadow:0 30px 60px -25px var(--shadow);
+    animation:float 5s ease-in-out infinite;
+  }
+  @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+  .arch img{ width:100%; height:100%; object-fit:cover; display:none; }
+  .arch-placeholder{ text-align:center; color:var(--muted); font-family:'Jost',sans-serif; font-size:12.5px; padding:24px; letter-spacing:0.03em; }
+  .arch-placeholder svg{ margin-bottom:10px; opacity:0.7; }
+
+  /* ---------- section shared ---------- */
+  .section-title{ font-size:clamp(32px,4vw,44px); margin-bottom:10px; }
+  .section-lead{ font-family:'Jost',sans-serif; color:var(--muted); font-size:14.5px; margin-bottom:44px; max-width:560px; letter-spacing:0.01em; }
+  .about-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:64px; padding-bottom:20px; }
+  .about-text p{ font-size:19px; line-height:1.85; color:var(--ink); }
+  .about-text p:first-letter{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:58px; color:var(--wine);
+    float:left; line-height:0.8; margin:10px 10px 0 0;
+  }
+  .skill-list{ list-style:none; margin:20px 0 0; padding:0; font-family:'Jost',sans-serif; }
+  .skill-list li{
+    display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--hair);
+    font-size:14px; letter-spacing:0.03em; color:var(--ink);
+  }
+  .skill-list li::before{ content:''; width:5px; height:5px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+
+  .stat-block{ display:grid; grid-template-columns:1fr 1fr; gap:30px 20px; align-content:start; }
+  .stat{ border-left:1px solid var(--wine); padding-left:18px; }
+  .stat .num{ font-size:40px; color:var(--wine); font-style:italic; }
+  .stat .label{ font-family:'Jost',sans-serif; font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px; }
+
+  /* ---------- skills section ---------- */
+  .skills-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; padding-bottom:12px; }
+  .skills-col-label{ margin-bottom:18px; display:block; }
+  .open-to-box{
+    margin-top:56px; padding:28px 32px; border:1px solid var(--hair); border-radius:4px;
+    background:var(--card-bg); font-family:'Jost',sans-serif; font-size:14px; line-height:1.75; color:var(--muted);
+  }
+  .open-to-box strong{ color:var(--wine); font-weight:500; }
+
+  /* ---------- experience & education timeline ---------- */
+  .timeline-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; padding-bottom:20px; }
+  .timeline-item{ padding:18px 0 20px 22px; border-left:2px solid var(--hair); margin-bottom:4px; position:relative; }
+  .timeline-item::before{
+    content:''; position:absolute; left:-6px; top:22px; width:10px; height:10px; border-radius:50%;
+    background:var(--cream); border:2px solid var(--gold);
+  }
+  .t-title{ font-size:21px; color:var(--ink); margin-bottom:6px; }
+  .t-meta{ font-size:12.5px; color:var(--wine); letter-spacing:0.03em; margin-bottom:8px; }
+  .t-desc{ font-family:'Jost',sans-serif; font-size:14px; line-height:1.75; color:var(--muted); font-weight:300; }
+
+  /* ---------- projects (text-only editorial cards) ---------- */
+  .project-row{
+    display:flex; gap:28px; align-items:flex-start; padding:44px 0; border-bottom:1px solid var(--hair);
+    position:relative;
+  }
+  .project-row:first-child{ padding-top:0; }
+  .p-numeral{
+    flex:0 0 auto; font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:34px; color:var(--gold); line-height:1; padding-top:4px; min-width:52px;
+  }
+  .p-body{ flex:1; }
+  .p-title{ font-size:30px; margin-bottom:12px; color:var(--ink); }
+  .p-desc{ font-family:'Jost',sans-serif; font-size:14.5px; line-height:1.8; color:var(--muted); font-weight:300; }
+  .p-tags{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 20px; font-family:'Jost',sans-serif; }
+  .p-tag{ font-size:11px; letter-spacing:0.06em; padding:5px 12px; border:1px solid var(--hair); color:var(--wine); text-transform:uppercase; }
+  .p-links{ display:flex; gap:28px; flex-wrap:wrap; font-family:'Jost',sans-serif; }
+  .p-link{
+    display:flex; align-items:center; gap:8px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--wine); text-decoration:none; border-bottom:1px solid var(--gold); padding-bottom:3px;
+    transition:color .2s, border-color .2s;
+  }
+  .p-link:hover{ color:var(--gold-light); border-color:var(--gold-light); }
+  .p-link svg{ width:14px; height:14px; flex-shrink:0; }
+
+  /* ---------- contact ---------- */
+  .contact{ padding:100px 0 50px; text-align:center; }
+  .contact h2{ font-size:clamp(32px,5vw,46px); margin-bottom:16px; }
+  .contact p{ font-family:'Jost',sans-serif; color:var(--muted); max-width:520px; margin:0 auto 14px; line-height:1.75; font-size:14.5px; }
+  .contact-open{ max-width:560px; margin:0 auto 40px; font-size:13.5px; }
+  .contact-links{ display:flex; gap:34px; justify-content:center; flex-wrap:wrap; margin-bottom:70px; font-family:'Jost',sans-serif; }
+  .contact-links a{
+    display:flex; align-items:center; gap:10px; color:var(--ink); text-decoration:none; font-size:14px;
+    border-bottom:1px solid transparent; padding-bottom:4px; transition:border-color .25s, color .25s;
+  }
+  .contact-links a:hover{ color:var(--wine); border-color:var(--gold); }
+  footer{ text-align:center; padding:24px 0 90px; font-family:'Jost',sans-serif; color:var(--muted); font-size:11.5px; letter-spacing:0.05em; }
+  footer .sig{ color:var(--wine); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; }
+
+  input[type="file"]{ display:none; }
+
+  @media (max-width:900px){
+    .hero{ grid-template-columns:1fr; text-align:center; padding-top:60px; }
+    .hero .bio{ margin:0 auto; }
+    .hero-eyebrow-line{ justify-content:center; }
+    .hero-actions{ justify-content:center; }
+    .about-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:1fr; }
+    .timeline-grid{ grid-template-columns:1fr; }
+    .project-row{ flex-direction:column; gap:10px; }
+    .nav-links{ display:none; }
+    .topbar-inner{ justify-content:center; }
+    .edit-banner{ right:16px; bottom:88px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <div class="monogram" id="monogram">A</div>
+    <div class="nav-links">
+      <a href="#top" data-i18n="nav_home">Accueil</a>
+      <a href="#about" data-i18n="nav_about">À propos</a>
+      <a href="#skills" data-i18n="nav_skills">Compétences</a>
+      <a href="#projects" data-i18n="nav_projects">Projets</a>
+      <a href="#formation" data-i18n="nav_formation">Formation</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <div class="lang-pills">
+        <button class="lang-pill active" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-pill" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-pill" data-lang="ar" onclick="setLang('ar')">عربي</button>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Changer de thème">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div>
+      <div class="hero-eyebrow-line"><div class="stub"></div><div class="eyebrow" data-i18n="hero_eyebrow">Portfolio</div></div>
+      <h1 id="heroName">Amira <em>Lemrani</em></h1>
+      <svg class="underline-svg" width="260" height="14" viewBox="0 0 260 14"><path d="M2 8 Q60 2 130 7 T258 6"/></svg>
+      <div class="role ui" data-i18n="hero_role">Étudiante en 1ère année Master — Big Data &amp; Systèmes Intelligents</div>
+      <div class="bio" data-i18n="hero_bio">
+        Passionnée par l'Intelligence Artificielle, le Machine Learning, la Data Science et le Big Data Analytics — je transforme les données en solutions concrètes.
+      </div>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-solid" data-i18n="btn_projects">Voir mes projets</a>
+        <a href="#contact" class="btn btn-ghost" data-i18n="btn_contact">Me contacter</a>
+      </div>
+    </div>
+
+    <div class="arch-wrap">
+      <div class="arch-ring"></div>
+      <div class="arch">
+        <img id="heroPhoto" alt="Amira Lemrani" src="photo.jpg" style="display:block;">
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="divider-mark">✦</div></div>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="eyebrow" data-i18n="about_eyebrow">À propos</div>
+    <h2 class="section-title" data-i18n="about_title">Mon profil</h2>
+    <p class="section-lead" data-i18n="about_lead">Formation, parcours et ce qui distingue ma façon de travailler.</p>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p data-i18n="about_text">
+          Passionnée par l'informatique, l'analyse de données et le développement d'applications, je possède une solide formation académique ainsi qu'une expérience pratique acquise lors de plusieurs stages. Organisée, rigoureuse et dotée d'un bon esprit d'analyse, je m'adapte rapidement aux nouveaux environnements et je souhaite contribuer efficacement à des projets innovants tout en développant mes compétences professionnelles. J'aime apprendre continuellement de nouvelles technologies et approfondir mon expertise technique à travers des projets concrets.
+        </p>
+      </div>
+      <div>
+        <div class="stat-block">
+          <div class="stat"><div class="num">2</div><div class="label" data-i18n="stat_internships">Stages effectués</div></div>
+          <div class="stat"><div class="num">3</div><div class="label" data-i18n="stat_degrees">Diplômes obtenus</div></div>
+          <div class="stat"><div class="num">2</div><div class="label" data-i18n="stat_certifications">Certifications</div></div>
+          <div class="stat"><div class="num">3</div><div class="label" data-i18n="stat_languages">Langues parlées</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="divider-mark">✦</div></div>
+
+  <!-- SKILLS -->
+  <section id="skills" class="reveal">
+    <div class="eyebrow" data-i18n="skills_eyebrow">Compétences</div>
+    <h2 class="section-title" data-i18n="skills_title">Mes compétences</h2>
+    <p class="section-lead" data-i18n="skills_lead">Un aperçu de mes compétences professionnelles, techniques et linguistiques.</p>
+
+    <div class="skills-grid">
+      <div>
+        <div class="eyebrow skills-col-label" data-i18n="label_prof_skills">Compétences professionnelles</div>
+        <ul class="skill-list">
+          <li data-i18n="prof_skill_1">Esprit d'analyse et résolution de problèmes</li>
+          <li data-i18n="prof_skill_2">Organisation, rigueur et sens du détail</li>
+          <li data-i18n="prof_skill_3">Travail en équipe et collaboration</li>
+          <li data-i18n="prof_skill_4">Communication écrite et orale</li>
+          <li data-i18n="prof_skill_5">Adaptabilité et apprentissage rapide</li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow skills-col-label" data-i18n="label_tech_skills">Compétences techniques</div>
+        <ul class="skill-list">
+          <li data-i18n="tech_skill_1">Python &amp; SQL / MySQL / Neo4j</li>
+          <li data-i18n="tech_skill_2">Analyse &amp; traitement des données</li>
+          <li data-i18n="tech_skill_3">Machine Learning &amp; Data Science</li>
+          <li data-i18n="tech_skill_4">Computer Vision &amp; NLP</li>
+          <li data-i18n="tech_skill_5">Cloud Computing &amp; Développement Web</li>
+          <li data-i18n="tech_skill_6">Pack Microsoft Office</li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow skills-col-label" data-i18n="label_languages">Langues</div>
+        <ul class="skill-list">
+          <li data-i18n="lang_1">Arabe — langue maternelle</li>
+          <li data-i18n="lang_2">Français — B2</li>
+          <li data-i18n="lang_3">Anglais — Professional Working Proficiency</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="open-to-box">
+      <strong data-i18n="open_to_label">Ouverte aux opportunités :</strong> <span data-i18n="open_to_skills">Data Analyst, Data Scientist, Machine Learning Engineer, AI Engineer et Business Intelligence, ainsi qu'aux stages et postes juniors où je peux contribuer, apprendre et évoluer.</span>
+    </div>
+  </section>
+
+  <div class="divider"><div class="divider-mark">✦</div></div>
+
+  <!-- FORMATION & EXPÉRIENCE -->
+  <section id="formation" class="reveal">
+    <div class="eyebrow" data-i18n="formation_eyebrow">Parcours</div>
+    <h2 class="section-title" data-i18n="formation_title">Formation &amp; Expérience</h2>
+    <p class="section-lead" data-i18n="formation_lead">Mon parcours académique et mes stages professionnels.</p>
+
+    <div class="timeline-grid">
+      <div>
+        <div class="eyebrow" data-i18n="label_experience" style="margin-bottom:22px; display:block;">Expérience professionnelle</div>
+
+        <div class="timeline-item">
+          <div class="t-title" data-i18n="exp_1_title">Stage — Service Administratif</div>
+          <div class="t-meta ui">Courtier d'assurance ADAN · 04/2023 – 06/2023</div>
+          <div class="t-desc" data-i18n="exp_1_desc">Conception et développement d'une application web de gestion des dossiers administratifs. Participation à l'analyse des besoins fonctionnels, amélioration de l'organisation des informations et suivi des tests de la solution.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="t-title" data-i18n="exp_2_title">Stage — Service Administratif</div>
+          <div class="t-meta ui">Groupe Renault Auto Abda · 07/2022 – 07/2022</div>
+          <div class="t-desc" data-i18n="exp_2_desc">Développement d'une application web pour la gestion des véhicules, des factures et des immatriculations. Structuration des données administratives et participation à la conception de la base de données.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow" data-i18n="label_education" style="margin-bottom:22px; display:block;">Formation</div>
+
+        <div class="timeline-item">
+          <div class="t-title"><span data-i18n="edu_1_title">Master Big Data &amp; Systèmes Intelligents</span> <span class="ui" data-i18n="in_progress" style="font-size:12px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em;">— en cours</span></div>
+          <div class="t-meta ui"><span data-i18n="edu_1_year">1ère année</span> · 2025 – <span data-i18n="ongoing">en cours</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-title" data-i18n="edu_2_title">Licence Fondamentale — Science Mathématique et Informatique</div>
+          <div class="t-meta ui">Faculté des Sciences Dhar El Mahraz · 2025</div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-title" data-i18n="edu_3_title">DUT — Génie Informatique</div>
+          <div class="t-meta ui">École Supérieure de Technologie · 2023</div>
+        </div>
+
+        <div class="eyebrow" data-i18n="label_certifications" style="margin:32px 0 12px; display:block;">Certifications</div>
+        <div class="p-tags">
+          <div class="p-tag" data-i18n="cert_1">Cisco Networking Academy — 2022</div>
+          <div class="p-tag" data-i18n="cert_2">Français B2, Alliance Française — 2021</div>
+        </div>
+
+        <div class="eyebrow" data-i18n="label_interests" style="margin:28px 0 12px; display:block;">Centres d'intérêt</div>
+        <div class="p-tags">
+          <div class="p-tag" data-i18n="interest_1">Dessin</div>
+          <div class="p-tag" data-i18n="interest_2">Basketball</div>
+          <div class="p-tag" data-i18n="interest_3">Football</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="divider-mark">✦</div></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="eyebrow reveal" data-i18n="projects_eyebrow">Réalisations</div>
+
+  <h2 class="section-title reveal" data-i18n="projects_title">
+    Projets sélectionnés
+  </h2>
+
+  <p class="section-lead reveal" data-i18n="projects_lead">
+    Une sélection de travaux représentatifs de mon approche et de mes compétences.
+  </p>
+
+  <div id="projectsGrid">
+
+    <!-- PROJECT I : SPOT RABAT -->
+    <div class="project-row reveal">
+      <div class="p-numeral">I.</div>
+
+      <div class="p-body">
+
+        <div class="p-title" data-i18n="proj_1_title">
+          Spot Rabat — Géolocalisation des services de proximité
+        </div>
+
+        <div class="p-desc" data-i18n="proj_1_desc">
+          Application web full-stack permettant de rechercher les services de proximité
+          à Rabat selon leur catégorie et leur distance. Le projet exploite les données
+          OpenStreetMap, une base de données graphe Neo4j et une API FastAPI pour effectuer
+          des recherches géospatiales en temps réel, avec une interface interactive basée
+          sur React et Leaflet.
+        </div>
+
+        <div class="p-tags">
+          <div class="p-tag">Python</div>
+          <div class="p-tag">FastAPI</div>
+          <div class="p-tag">Neo4j</div>
+          <div class="p-tag">React</div>
+          <div class="p-tag">Leaflet</div>
+          <div class="p-tag">OpenStreetMap</div>
+        </div>
+
+        <div class="p-links">
+
+          <a href="https://github.com/LemraniAmira/Spot-Rabat"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="p-link">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.5">
+              <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+
+            <span data-i18n="view_project">Voir le projet</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT II : AIR QUALITY PREDICTION -->
+<div class="project-row reveal">
+  <div class="p-numeral">II.</div>
+
+  <div class="p-body">
+
+    <div class="p-title" data-i18n="proj_2_title">
+      Prédiction de la qualité de l'air dans les villes marocaines
+    </div>
+
+    <div class="p-desc" data-i18n="proj_2_desc">
+      Projet de Machine Learning dédié à la prédiction du PM2.5 dans quatre villes
+      marocaines : Casablanca, Rabat, Marrakech et Fès. Le projet compare une
+      approche centralisée à une approche de Federated Learning, avec une
+      implémentation manuelle de FedAvg puis une implémentation basée sur Flower.
+      Le modèle Random Forest centralisé atteint un R² de 0.896, tandis que
+      l'approche fédérée explore le compromis entre performance et confidentialité
+      des données locales.
+    </div>
+
+    <div class="p-tags">
+      <div class="p-tag">Python</div>
+      <div class="p-tag">Machine Learning</div>
+      <div class="p-tag">Scikit-learn</div>
+      <div class="p-tag">Federated Learning</div>
+      <div class="p-tag">Flower</div>
+      <div class="p-tag">Pandas</div>
+    </div>
+
+    <div class="p-links">
+
+      <a href="https://github.com/LemraniAmira/air-quality-prediction-morocco"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="p-link">
+
+        <svg viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="1.5">
+          <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0Z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+
+        <span data-i18n="view_project">Voir le projet</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+    <!-- PROJECT III : WORKWAVE -->
+    <div class="project-row reveal">
+      <div class="p-numeral">III.</div>
+
+      <div class="p-body">
+
+        <div class="p-title" data-i18n="proj_3_title">
+          WorkWave — Plateforme de recrutement
+        </div>
+
+        <div class="p-desc" data-i18n="proj_3_desc">
+          Application web de recrutement mettant en relation candidats et entreprises.
+          La plateforme permet aux candidats de créer et gérer leur profil, consulter
+          les offres et postuler, tandis que les entreprises peuvent publier, modifier
+          et gérer leurs offres et consulter les profils des candidats.
+        </div>
+
+        <div class="p-tags">
+          <div class="p-tag">PHP</div>
+          <div class="p-tag">MySQL</div>
+          <div class="p-tag">JavaScript</div>
+          <div class="p-tag">Bootstrap</div>
+        </div>
+
+        <div class="p-links">
+
+          <a href="https://github.com/LemraniAmira/WorkWave"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="p-link">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.5">
+              <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+
+            <span data-i18n="view_project">Voir le projet</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- CONTACT -->
+  <section class="contact reveal" id="contact">
+    <div class="eyebrow" data-i18n="contact_eyebrow">Contact</div>
+    <h2 data-i18n="contact_title">Travaillons ensemble</h2>
+    <p data-i18n="contact_text">Ouverte aux stages, projets académiques et opportunités en Data &amp; Intelligence Artificielle.</p>
+    <p class="contact-open" data-i18n="open_to">Ouverte aux opportunités : Data Analyst, Data Scientist, Machine Learning Engineer, AI Engineer, Business Intelligence, stages et postes juniors.</p>
+    <div class="contact-links">
+      <a href="mailto:lemraniamira@gmail.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>lemraniamira@gmail.com</span>
+      </a>
+      <a href="tel:+212631930996">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2Z"/></svg>
+        <span>+212 631 930 996</span>
+      </a>
+      <a href="#">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span data-i18n="contact_location">Fès, Maroc</span>
+      </a>
+      <a href="#">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13c0-2 2-4 5-4s5 2 5 4v8"/></svg>
+        <span>LinkedIn</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> — <span class="sig" id="footerName">Amira Lemrani</span>. <span data-i18n="footer_rights">Tous droits réservés.</span>
+  </footer>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ============ Scroll reveal ============ */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.15 });
+  revealEls.forEach(el=> io.observe(el));
+
+  /* ============ Count-up for stats ============ */
+  const statEls = document.querySelectorAll('.stat .num');
+  const statIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const raw = el.textContent.trim();
+        const match = raw.match(/^(\d+)(.*)$/);
+        if(match){
+          const target = parseInt(match[1], 10);
+          const suffix = match[2];
+          let cur = 0;
+          const step = Math.max(1, Math.round(target/40));
+          const id = setInterval(()=>{
+            cur += step;
+            if(cur >= target){ cur = target; clearInterval(id); }
+            el.textContent = cur + suffix;
+          }, 30);
+        }
+        statIO.unobserve(el);
+      }
+    });
+  }, { threshold:0.4 });
+  statEls.forEach(el=> statIO.observe(el));
+
+  /* ============ Theme toggle ============ */
+  function toggleTheme(){
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+  }
+
+  /* ============ Language switch ============ */
+  const TRANSLATIONS = {
+    fr:{
+      nav_home:"Accueil", nav_about:"À propos", nav_skills:"Compétences", nav_projects:"Projets", nav_formation:"Formation", nav_contact:"Contact",
+      hero_eyebrow:"Portfolio", btn_projects:"Voir mes projets", btn_contact:"Me contacter",
+      hero_role:"Étudiante en 1ère année Master — Big Data & Systèmes Intelligents",
+      hero_bio:"Passionnée par l'Intelligence Artificielle, le Machine Learning, la Data Science et le Big Data Analytics — je transforme les données en solutions concrètes.",
+      about_eyebrow:"À propos", about_title:"Mon profil", about_lead:"Formation, parcours et ce qui distingue ma façon de travailler.",
+      about_text:"Passionnée par l'informatique, l'analyse de données et le développement d'applications, je possède une solide formation académique ainsi qu'une expérience pratique acquise lors de plusieurs stages. Organisée, rigoureuse et dotée d'un bon esprit d'analyse, je m'adapte rapidement aux nouveaux environnements et je souhaite contribuer efficacement à des projets innovants tout en développant mes compétences professionnelles. J'aime apprendre continuellement de nouvelles technologies et approfondir mon expertise technique à travers des projets concrets.",
+      stat_internships:"Stages effectués", stat_degrees:"Diplômes obtenus", stat_certifications:"Certifications", stat_languages:"Langues parlées",
+      skills_eyebrow:"Compétences", skills_title:"Mes compétences", skills_lead:"Un aperçu de mes compétences professionnelles, techniques et linguistiques.",
+      label_prof_skills:"Compétences professionnelles", label_tech_skills:"Compétences techniques", label_languages:"Langues",
+      prof_skill_1:"Esprit d'analyse et résolution de problèmes",
+      prof_skill_2:"Organisation, rigueur et sens du détail",
+      prof_skill_3:"Travail en équipe et collaboration",
+      prof_skill_4:"Communication écrite et orale",
+      prof_skill_5:"Adaptabilité et apprentissage rapide",
+      tech_skill_1:"Python & SQL / MySQL / Neo4j",
+      tech_skill_2:"Analyse & traitement des données",
+      tech_skill_3:"Machine Learning & Data Science",
+      tech_skill_4:"Computer Vision & NLP",
+      tech_skill_5:"Cloud Computing & Développement Web",
+      tech_skill_6:"Pack Microsoft Office",
+      lang_1:"Arabe — langue maternelle",
+      lang_2:"Français — B2",
+      lang_3:"Anglais — Professional Working Proficiency",
+      open_to_label:"Ouverte aux opportunités :",
+      open_to_skills:"Data Analyst, Data Scientist, Machine Learning Engineer, AI Engineer et Business Intelligence, ainsi qu'aux stages et postes juniors où je peux contribuer, apprendre et évoluer.",
+      formation_eyebrow:"Parcours", formation_title:"Formation & Expérience", formation_lead:"Mon parcours académique et mes stages professionnels.",
+      label_experience:"Expérience professionnelle", label_education:"Formation", label_certifications:"Certifications", label_interests:"Centres d'intérêt",
+      exp_1_title:"Stage — Service Administratif",
+      exp_1_desc:"Conception et développement d'une application web de gestion des dossiers administratifs. Participation à l'analyse des besoins fonctionnels, amélioration de l'organisation des informations et suivi des tests de la solution.",
+      exp_2_title:"Stage — Service Administratif",
+      exp_2_desc:"Développement d'une application web pour la gestion des véhicules, des factures et des immatriculations. Structuration des données administratives et participation à la conception de la base de données.",
+      edu_1_title:"Master Big Data & Systèmes Intelligents",
+      in_progress:"— en cours",
+      edu_1_year:"1ère année",
+      ongoing:"en cours",
+      edu_2_title:"Licence Fondamentale — Science Mathématique et Informatique",
+      edu_3_title:"DUT — Génie Informatique",
+      cert_1:"Cisco Networking Academy — 2022",
+      cert_2:"Français B2, Alliance Française — 2021",
+      interest_1:"Dessin", interest_2:"Basketball", interest_3:"Football",
+      projects_eyebrow:"Réalisations", projects_title:"Projets sélectionnés", projects_lead:"Une sélection de travaux représentatifs de mon approche et de mes compétences.",
+      view_project:"Voir le projet",
+      proj_1_title:"Spot Rabat — Géolocalisation des services de proximité",
+      proj_1_desc:"Application web full-stack permettant de rechercher les services de proximité à Rabat selon leur catégorie et leur distance. Le projet exploite les données OpenStreetMap, une base de données graphe Neo4j et une API FastAPI pour effectuer des recherches géospatiales en temps réel, avec une interface interactive basée sur React et Leaflet.",
+      proj_2_title:"Prédiction de la qualité de l'air dans les villes marocaines",
+      proj_2_desc:"Projet de Machine Learning dédié à la prédiction du PM2.5 dans quatre villes marocaines : Casablanca, Rabat, Marrakech et Fès. Le projet compare une approche centralisée à une approche de Federated Learning, avec une implémentation manuelle de FedAvg puis une implémentation basée sur Flower. Le modèle Random Forest centralisé atteint un R² de 0.896, tandis que l'approche fédérée explore le compromis entre performance et confidentialité des données locales.",
+      proj_3_title:"WorkWave — Plateforme de recrutement",
+      proj_3_desc:"Application web de recrutement mettant en relation candidats et entreprises. La plateforme permet aux candidats de créer et gérer leur profil, consulter les offres et postuler, tandis que les entreprises peuvent publier, modifier et gérer leurs offres et consulter les profils des candidats.",
+      contact_eyebrow:"Contact",
+      contact_title:"Travaillons ensemble",
+      contact_text:"Ouverte aux stages, projets académiques et opportunités en Data & Intelligence Artificielle.",
+      contact_location:"Fès, Maroc",
+      open_to:"Ouverte aux opportunités : Data Analyst, Data Scientist, Machine Learning Engineer, AI Engineer, Business Intelligence, stages et postes juniors.",
+      footer_rights:"Tous droits réservés."
+    },
+    en:{
+      nav_home:"Home", nav_about:"About", nav_skills:"Skills", nav_projects:"Projects", nav_formation:"Education", nav_contact:"Contact",
+      hero_eyebrow:"Portfolio", btn_projects:"View my projects", btn_contact:"Contact me",
+      hero_role:"1st-year Master's student — Big Data & Intelligent Systems",
+      hero_bio:"Passionate about Artificial Intelligence, Machine Learning, Data Science and Big Data Analytics — I turn data into concrete solutions.",
+      about_eyebrow:"About", about_title:"My profile", about_lead:"Education, background and what defines my way of working.",
+      about_text:"Passionate about computer science, data analysis and application development, I have a solid academic background as well as hands-on experience gained through several internships. Organized, rigorous and analytical, I adapt quickly to new environments and want to contribute effectively to innovative projects while developing my professional skills. I enjoy continuously learning new technologies and deepening my technical expertise through concrete projects.",
+      stat_internships:"Internships completed", stat_degrees:"Degrees earned", stat_certifications:"Certifications", stat_languages:"Languages spoken",
+      skills_eyebrow:"Skills", skills_title:"My Skills", skills_lead:"An overview of my professional, technical and language skills.",
+      label_prof_skills:"Professional Skills", label_tech_skills:"Technical Skills", label_languages:"Languages",
+      prof_skill_1:"Analytical mindset and problem solving",
+      prof_skill_2:"Organization, rigor and attention to detail",
+      prof_skill_3:"Teamwork and collaboration",
+      prof_skill_4:"Written and verbal communication",
+      prof_skill_5:"Adaptability and fast learning",
+      tech_skill_1:"Python & SQL / MySQL / Neo4j",
+      tech_skill_2:"Data analysis & processing",
+      tech_skill_3:"Machine Learning & Data Science",
+      tech_skill_4:"Computer Vision & NLP",
+      tech_skill_5:"Cloud Computing & Web Development",
+      tech_skill_6:"Microsoft Office Suite",
+      lang_1:"Arabic — native language",
+      lang_2:"French — B2",
+      lang_3:"English — Professional Working Proficiency",
+      open_to_label:"Open to opportunities:",
+      open_to_skills:"Data Analyst, Data Scientist, Machine Learning Engineer, AI Engineer and Business Intelligence, as well as internships and junior roles where I can contribute, learn and grow.",
+      formation_eyebrow:"Education", formation_title:"Education & Experience", formation_lead:"My academic background and professional internships.",
+      label_experience:"Professional Experience", label_education:"Education", label_certifications:"Certifications", label_interests:"Interests",
+      exp_1_title:"Internship — Administrative Department",
+      exp_1_desc:"Design and development of a web application for managing administrative files. Participated in functional needs analysis, improved information organization and followed up on solution testing.",
+      exp_2_title:"Internship — Administrative Department",
+      exp_2_desc:"Development of a web application for managing vehicles, invoices and registrations. Structured administrative data and participated in database design.",
+      edu_1_title:"Master's in Big Data & Intelligent Systems",
+      in_progress:"— in progress",
+      edu_1_year:"1st year",
+      ongoing:"in progress",
+      edu_2_title:"Bachelor's Degree — Mathematics and Computer Science",
+      edu_3_title:"University Diploma of Technology — Computer Engineering",
+      cert_1:"Cisco Networking Academy — 2022",
+      cert_2:"French B2, Alliance Française — 2021",
+      interest_1:"Drawing", interest_2:"Basketball", interest_3:"Football",
+      projects_eyebrow:"Portfolio", projects_title:"Selected Projects", projects_lead:"A selection of work representative of my approach and skills.",
+      view_project:"View project",
+      proj_1_title:"Spot Rabat — Nearby Services Geolocation",
+      proj_1_desc:"Full-stack web application for finding nearby services in Rabat by category and distance. The project leverages OpenStreetMap data, a Neo4j graph database and a FastAPI backend to run real-time geospatial searches, with an interactive interface built with React and Leaflet.",
+      proj_2_title:"Air Quality Prediction in Moroccan Cities",
+      proj_2_desc:"Machine Learning project focused on predicting PM2.5 levels across four Moroccan cities: Casablanca, Rabat, Marrakech and Fez. The project compares a centralized approach to Federated Learning, with a manual FedAvg implementation followed by a Flower-based implementation. The centralized Random Forest model reaches an R² of 0.896, while the federated approach explores the trade-off between performance and local data privacy.",
+      proj_3_title:"WorkWave — Recruitment Platform",
+      proj_3_desc:"Recruitment web application connecting candidates and companies. The platform lets candidates create and manage their profile, browse job offers and apply, while companies can post, edit and manage their listings and review candidate profiles.",
+      contact_eyebrow:"Contact",
+      contact_title:"Let's work together",
+      contact_text:"Open to internships, academic projects and opportunities in Data & Artificial Intelligence.",
+      contact_location:"Fez, Morocco",
+      open_to:"Open to opportunities: Data Analyst, Data Scientist, Machine Learning Engineer, AI Engineer, Business Intelligence, internships and junior roles.",
+      footer_rights:"All rights reserved."
+    },
+    ar:{
+      nav_home:"الرئيسية", nav_about:"نبذة عني", nav_skills:"المهارات", nav_projects:"المشاريع", nav_formation:"التكوين", nav_contact:"اتصل بي",
+      hero_eyebrow:"بورتفوليو", btn_projects:"مشاهدة مشاريعي", btn_contact:"تواصل معي",
+      hero_role:"طالبة في السنة الأولى ماستر — البيانات الضخمة والأنظمة الذكية",
+      hero_bio:"شغوفة بالذكاء الاصطناعي والتعلم الآلي وعلم البيانات وتحليل البيانات الضخمة — أحوّل البيانات إلى حلول ملموسة.",
+      about_eyebrow:"نبذة عني", about_title:"ملفي الشخصي", about_lead:"التكوين، المسار وما يميز طريقة عملي.",
+      about_text:"شغوفة بالمعلوميات وتحليل البيانات وتطوير التطبيقات، أمتلك تكوينا أكاديميا متينا وخبرة عملية اكتسبتها خلال عدة تداريب. منظمة، دقيقة وذات روح تحليلية جيدة، أتكيف بسرعة مع البيئات الجديدة وأرغب في المساهمة الفعالة في مشاريع مبتكرة مع تطوير مهاراتي المهنية. أحب التعلم المستمر لتقنيات جديدة وتعميق خبرتي التقنية من خلال مشاريع ملموسة.",
+      stat_internships:"تداريب منجزة", stat_degrees:"شهادات محصل عليها", stat_certifications:"شهادات تخصصية", stat_languages:"لغات متحدث بها",
+      skills_eyebrow:"المهارات", skills_title:"مهاراتي", skills_lead:"نظرة عامة على مهاراتي المهنية والتقنية واللغوية.",
+      label_prof_skills:"المهارات المهنية", label_tech_skills:"المهارات التقنية", label_languages:"اللغات",
+      prof_skill_1:"روح تحليلية وحل المشكلات",
+      prof_skill_2:"التنظيم والدقة والاهتمام بالتفاصيل",
+      prof_skill_3:"العمل الجماعي والتعاون",
+      prof_skill_4:"التواصل الكتابي والشفهي",
+      prof_skill_5:"القدرة على التكيف والتعلم السريع",
+      tech_skill_1:"Python و SQL / MySQL / Neo4j",
+      tech_skill_2:"تحليل ومعالجة البيانات",
+      tech_skill_3:"التعلم الآلي وعلم البيانات",
+      tech_skill_4:"رؤية الحاسوب ومعالجة اللغة الطبيعية",
+      tech_skill_5:"الحوسبة السحابية وتطوير الويب",
+      tech_skill_6:"حزمة Microsoft Office",
+      lang_1:"العربية — اللغة الأم",
+      lang_2:"الفرنسية — B2",
+      lang_3:"الإنجليزية — كفاءة مهنية عملية",
+      open_to_label:"منفتحة على فرص:",
+      open_to_skills:"محلل بيانات، عالم بيانات، مهندس تعلم آلي، مهندس ذكاء اصطناعي وذكاء الأعمال، وكذا فرص تدريب ومناصب مبتدئة يمكنني من خلالها المساهمة والتعلم والتطور.",
+      formation_eyebrow:"المسار", formation_title:"التكوين والخبرة", formation_lead:"مساري الأكاديمي وتداريبي المهنية.",
+      label_experience:"الخبرة المهنية", label_education:"التكوين", label_certifications:"الشهادات", label_interests:"الاهتمامات",
+      exp_1_title:"تدريب — القسم الإداري",
+      exp_1_desc:"تصميم وتطوير تطبيق ويب لتدبير الملفات الإدارية. المشاركة في تحليل الاحتياجات الوظيفية، تحسين تنظيم المعلومات ومتابعة اختبارات الحل.",
+      exp_2_title:"تدريب — القسم الإداري",
+      exp_2_desc:"تطوير تطبيق ويب لتدبير المركبات والفواتير والتسجيلات. هيكلة البيانات الإدارية والمشاركة في تصميم قاعدة البيانات.",
+      edu_1_title:"ماستر البيانات الضخمة والأنظمة الذكية",
+      in_progress:"— جاري",
+      edu_1_year:"السنة الأولى",
+      ongoing:"جاري",
+      edu_2_title:"إجازة أساسية — علوم الرياضيات والمعلوميات",
+      edu_3_title:"دبلوم جامعي للتكنولوجيا — هندسة المعلوميات",
+      cert_1:"أكاديمية Cisco للشبكات — 2022",
+      cert_2:"الفرنسية B2، Alliance Française — 2021",
+      interest_1:"الرسم", interest_2:"كرة السلة", interest_3:"كرة القدم",
+      projects_eyebrow:"الإنجازات", projects_title:"مشاريع مختارة", projects_lead:"مجموعة مختارة من الأعمال التي تعكس أسلوبي ومهاراتي.",
+      view_project:"مشاهدة المشروع",
+      proj_1_title:"Spot Rabat — تحديد مواقع الخدمات القريبة",
+      proj_1_desc:"تطبيق ويب متكامل للبحث عن الخدمات القريبة في الرباط حسب الفئة والمسافة. يعتمد المشروع على بيانات OpenStreetMap، وقاعدة بيانات الرسم البياني Neo4j وواجهة برمجة FastAPI لإجراء بحث جغرافي مكاني في الزمن الحقيقي، مع واجهة تفاعلية مبنية على React و Leaflet.",
+      proj_2_title:"التنبؤ بجودة الهواء في المدن المغربية",
+      proj_2_desc:"مشروع تعلم آلي مخصص للتنبؤ بمستوى PM2.5 في أربع مدن مغربية: الدار البيضاء، الرباط، مراكش وفاس. يقارن المشروع بين نهج مركزي ونهج التعلم الموزع (Federated Learning)، مع تنفيذ يدوي لخوارزمية FedAvg ثم تنفيذ باستخدام إطار Flower. يحقق نموذج Random Forest المركزي معامل تحديد R² يبلغ 0.896، بينما يستكشف النهج الموزع التوازن بين الأداء وخصوصية البيانات المحلية.",
+      proj_3_title:"WorkWave — منصة توظيف",
+      proj_3_desc:"تطبيق ويب للتوظيف يربط بين المترشحين والشركات. تتيح المنصة للمترشحين إنشاء وإدارة ملفهم الشخصي، الاطلاع على العروض والتقديم عليها، بينما يمكن للشركات نشر وتعديل وإدارة عروضها والاطلاع على ملفات المترشحين.",
+      contact_eyebrow:"اتصل بي",
+      contact_title:"لنعمل معًا",
+      contact_text:"منفتحة على فرص التدريب والمشاريع الأكاديمية والفرص في مجال البيانات والذكاء الاصطناعي.",
+      contact_location:"فاس، المغرب",
+      open_to:"منفتحة على فرص: محلل بيانات، عالم بيانات، مهندس تعلم آلي، مهندس ذكاء اصطناعي، ذكاء الأعمال، فرص تدريب ومناصب مبتدئة.",
+      footer_rights:"جميع الحقوق محفوظة."
+    }
+  };
+
+  function setLang(lang){
+    const dict = TRANSLATIONS[lang];
+    if(!dict) return;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(dict[key]) el.textContent = dict[key];
+    });
+    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    document.querySelectorAll('.lang-pill').forEach(p=>{
+      p.classList.toggle('active', p.getAttribute('data-lang') === lang);
+    });
+  }
+</script>
+
+</body>
+</html>
